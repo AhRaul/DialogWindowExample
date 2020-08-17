@@ -1,5 +1,6 @@
 package com.example.dialogwindowexample;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -11,6 +12,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,15 +25,47 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_layout);
+
+        final EditText tSetName = (EditText) dialog.findViewById(R.id.editTextInputName);
+        final EditText tSetNumber = (EditText) dialog.findViewById(R.id.editTextInputNumber);
+
+        final TextView tFragment1 = findViewById(R.id.textview_first);
+
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-                //TODO запуск диалогового окна
+                //Запуск диалогового окна
+                dialog.show();
+                tSetName.setText("");
+                tSetNumber.setText("");
             }
         });
+
+
+        Button bCancel = (Button) dialog.findViewById(R.id.bCancel);
+        bCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();   //Закрытие диалогового окна
+            }
+        });
+
+        Button bOk = (Button) dialog.findViewById(R.id.bOk);
+        bOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO действия по нажатию на кнопку Ok
+                dialog.dismiss();   //Закрытие диалогового окна
+            }
+        });
+
+        dialog.setCancelable(false);
+        dialog.setTitle("Титульник");
     }
 
     @Override
